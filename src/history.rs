@@ -448,7 +448,7 @@ pub async fn summarize_conversation(
                 .rev()
                 .find(|msg| msg.role == roles::USER)
             {
-                if new_history.messages.last().is_none_or(|last_summary| {
+                if new_history.messages.last().map_or(true, |last_summary| {
                     last_summary.timestamp < last_user_message.timestamp
                 }) {
                     new_history.messages.push(last_user_message.clone());
